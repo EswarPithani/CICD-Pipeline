@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css'; // External CSS file for styling
+import './App.css';  // Make sure to create and include the CSS file
 
 function App() {
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // API call to fetch message
     axios.get('http://localhost:5000/api/message')
       .then(res => {
         setMsg(res.data.message);
         setLoading(false);
       })
       .catch(err => {
-        setError('Failed to fetch message. Please try again later.');
+        console.error(err);
+        setMsg('Something went wrong!');
         setLoading(false);
       });
   }, []);
@@ -23,27 +22,21 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>Welcome to My Informative Website</h1>
-        <p>Your API-powered message:</p>
+        <h1 className="title">Welcome to My Website</h1>
+        <p className="description">This is a simple app that fetches data from the backend and displays a message below.</p>
+        <img 
+          src="https://images.pexels.com/photos/585752/pexels-photo-585752.jpeg?auto=compress&cs=tinysrgb&w=600" 
+          alt="Sample Image" 
+          className="app-image" 
+        />
       </header>
-
-      <main className="app-main">
-        {loading ? (
-          <div className="loading-spinner">
-            <div className="spinner"></div> {/* Simple spinner */}
-            <p>Loading...</p>
-          </div>
-        ) : error ? (
-          <div className="error-message">
-            <p>{error}</p>
-          </div>
-        ) : (
-          <h2>{msg}</h2>
-        )}
+      <main className="content">
+        <h2 className="message">
+          {loading ? "Loading..." : msg}
+        </h2>
       </main>
-
-      <footer className="app-footer">
-        <p>&copy; 2025 My Website</p>
+      <footer className="footer">
+        <p>Created with Eswar</p>
       </footer>
     </div>
   );
