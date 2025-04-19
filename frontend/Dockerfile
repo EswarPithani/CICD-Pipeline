@@ -1,7 +1,23 @@
+# Use Node.js image
 FROM node:16
+
+# Set the working directory
 WORKDIR /app
-COPY . .
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Build the React app
 RUN npm run build
-RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "3000"]
+
+# Copy the rest of the code
+COPY . .
+
+# Expose the frontend port
+EXPOSE 3000
+
+# Start the frontend app
+CMD ["npm", "start"]
