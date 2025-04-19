@@ -33,7 +33,8 @@ jobs:
 
       - name: Test backend is working
         run: |
-          curl -f http://localhost:5000 || exit 1
+          curl -f http://localhost:5000/api/message || (echo "Backend failed to respond" && docker-compose logs && exit 1)
+
 
       - name: Test frontend is working
         run: |
