@@ -4,9 +4,11 @@ services:
     build: ./backend
     ports:
       - "5000:5000"
+    command: npm start  # Ensure that this runs your backend service correctly
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    command: npm start  # Runs the frontend service
