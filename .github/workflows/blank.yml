@@ -1,13 +1,26 @@
+<<<<<<< HEAD
 name: Fullstack CI/CD
 
 on:
   push:
     branches: [ main ]
+=======
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+>>>>>>> 9ba916ad640806d54cc6f30b522fdd274d2d5acd
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v3
 
       - name: Set up Docker
@@ -23,3 +36,23 @@ jobs:
 
       - name: Deploy step (optional)
         run: echo "Deploy to cloud/Kubernetes here"
+=======
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and run services using Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up --build -d
+
+      - name: Wait for services to be up
+        run: sleep 15
+
+      - name: Verify backend is running
+        run: curl http://localhost:5000
+
+      - name: Verify frontend is running
+        run: curl http://localhost:3000
+>>>>>>> 9ba916ad640806d54cc6f30b522fdd274d2d5acd
