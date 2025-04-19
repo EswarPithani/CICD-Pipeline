@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/message')
+    axios.get('https://cicd-pipeline-4hmr.onrender.com/api/message')
       .then(res => {
         setMsg(res.data.message);
         setLoading(false);
